@@ -1,0 +1,151 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: $light-black;
+    color: $white;
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: center;
+    text-shadow: 0 0 10px $dark-black;
+    
+    h1 {
+        margin: 0 0 1rem 0;
+        font-size: 4rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 20rem;
+        padding: 2rem;
+        background: $black;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 10px $dark-black;
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            margin: 0.5rem 0;
+
+            .form-input {
+                width: 100%;
+                padding: 0.5rem;
+                background: $light-black;
+                border: none;
+                border-radius: 0.25rem;
+                color: $black;
+                font-size: 1rem;
+                font-weight: 300;
+                margin: 0.25rem 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+
+                label {
+                    margin: 0 0 0.25rem 0;
+                    font-size: 0.75rem;
+                    font-weight: 400;
+                    color: $dark-white;
+                }
+
+                input {
+                    width: 100%;
+                    padding: 0.5rem;
+                    background: $white;
+                    border: none;
+                    border-radius: 0.25rem;
+                    color: $black;
+                    font-size: 1rem;
+                    font-weight: 300;
+                    margin: 0.25rem 0;
+                    outline: none;
+                    border: 1px solid $dark-white;
+                    transition: all 0.2s ease-in-out;
+
+                    &:hover {
+                        background: $dark-white;
+                    }
+                }
+
+                span {
+                    width: 100%;
+                    height: 5px;
+                    margin: 0.25rem 0;
+                    border-radius: 0.25rem;
+                    transition: all 0.2s ease-in-out;
+
+                    &.weak {
+                        width: 20%;
+                        background: red;
+                    }
+
+                    &.medium {
+                        width:40%;
+                        background: orange;
+                    }
+
+                    &.good {
+                        width: 60%;
+                        background: green;
+                    }
+
+                    &.strong {
+                        width: 80%;
+                        background: blue;
+                    }
+
+                    &.very-strong {
+                        width: 100%;
+                        background: purple;
+                    }
+                }
+            }
+
+            button {
+                width: 100%;
+                padding: 0.5rem;
+                background: $light-blue;
+                border: none;
+                border-radius: 0.25rem;
+                color: $white;
+                font-size: 1rem;
+                font-weight: 300;
+                margin: 0.25rem 0;
+                transition: background 0.2s ease-in-out;
+
+                &:hover {
+                    background: $blue;
+                }
+            }
+
+            p {
+                width: 100%;
+                margin: 0.5rem 0;
+                font-size: 0.75rem;
+                font-weight: 400;
+                color: $dark-white;
+
+                a {
+                    color: $light-blue;
+                    text-decoration: none;
+                    transition: color 0.2s ease-in-out;
+
+                    &:hover {
+                        color: $blue;
+                    }
+                }
+            }
+        }
+    }
+}

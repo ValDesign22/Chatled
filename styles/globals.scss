@@ -1,0 +1,37 @@
+$white: rgb(230, 230, 230);
+$dark-white: rgb(200, 200, 200);
+
+$light-black: rgb(50, 50, 50);
+$black: rgb(30, 30, 30);
+$dark-black: rgb(10, 10, 10);
+
+$light-blue: rgb(90, 90, 255);
+$blue: rgb(60, 60, 255);
+$dark-blue: rgb(30, 30, 255);
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: $white;
+  background: $light-black;
+}
+
+a {
+  color: $light-blue;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@import "app/index.module";
+@import "app/login.module";
