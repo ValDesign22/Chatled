@@ -1,7 +1,7 @@
 .rooms {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     bottom: 0;
     width: 5rem;
     background-color: $black;
@@ -10,7 +10,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 5rem;
+        flex-direction: column;
         background-color: $black;
 
         .room {
@@ -21,15 +21,15 @@
             height: 3rem;
             background-color: $light-black;
             border: 0;
-            cursor: pointer;
             transition: all 0.2s ease-in-out;
             border-radius: 100%;
             position: relative;
+            margin: 0.5rem 0;
 
             .tooltip {
                 position: absolute;
                 top: 0;
-                left: 250%;
+                right: 100%;
                 transform: translateX(-50%);
                 background-color: $black;
                 color: $white;
@@ -38,13 +38,15 @@
                 padding: 0.5rem;
                 border-radius: 0.25rem;
                 opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.2s ease-in-out;
+                scale: 0;
+                transition: all 0.2s ease-in-out;
                 z-index: 1;
                 min-width: 4rem;
+                text-align: center;
+                min-height: 1.5rem;
             }
 
-            a {
+            a, button {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -54,14 +56,174 @@
                 font-size: 1.5rem;
                 font-weight: 500;
                 text-decoration: none;
+                background-color: transparent;
+                outline: none;
+                border: none;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
             &:hover {
                 background-color: $light-blue;
+                border-radius: 1rem;
+                cursor: pointer;
 
                 .tooltip {
                     opacity: 1;
-                    visibility: visible;
+                    scale: 1;
+                }
+            }
+        }
+    }
+}
+
+.roomPopup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+
+    &.shown {
+        display: flex;
+    }
+
+    .popup {
+        background-color: $black;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 100%;
+        max-width: 30rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 1rem;
+            position: relative;
+            width: 100%;
+
+            h1 {
+                color: $white;
+                font-size: 1.5rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+
+                span {
+                    &::before,
+                    &::after {
+                        content: '';
+                        top: 50%;
+                        left: 50%;
+                        width: 30px;
+                        height: 3px;
+                        margin: 10px 0 0 -10px;
+                        background: $white;
+                        position: absolute;
+                        border-radius: 3px;
+                    }
+
+                    &::before {
+                    transform: translate(-50%, -50%) rotate(45deg);
+                    }
+
+                    &::after {
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                    }
+                }
+            }
+        }
+
+        .body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+
+            .input {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                margin-bottom: 1rem;
+
+                label {
+                    color: $white;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    margin-bottom: 0.5rem;
+                }
+
+                input {
+                    width: 100%;
+                    height: 2rem;
+                    background-color: $light-black;
+                    border: 0;
+                    border-radius: 0.25rem;
+                    padding: 0 0.5rem;
+                    color: $white;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    outline: none;
+                    border: 1px solid $white;
+                    transition: all 0.2s ease-in-out;
+
+                    &.error {
+                        border: 1px solid red;
+                    }
+
+                    &:not(.error):hover {
+                        border: 1px solid $light-blue;
+                    }
+
+                    &:focus {
+                        border: 1px solid $light-blue;
+                    }
+                }
+            }
+
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 2rem;
+                background-color: $light-blue;
+                border: 0;
+                border-radius: 0.25rem;
+                color: $white;
+                font-size: 1rem;
+                font-weight: 500;
+                outline: none;
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+
+                &:hover {
+                    background-color: $blue;
                 }
             }
         }

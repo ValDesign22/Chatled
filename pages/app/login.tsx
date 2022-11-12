@@ -1,8 +1,11 @@
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { User } from "../../utils/interfaces";
+import { parseUser } from "../../utils/parseUser";
 
-export default function Login() {
+export default function Login(props: { user: User }) {
     const login = async (event: any) => {
         event.preventDefault();
         const email = document.getElementById("email") as HTMLInputElement;
@@ -44,4 +47,18 @@ export default function Login() {
             </div>
         </>
     )
+}
+
+// @ts-ignore
+export const getServerSideProps: GetServerSideProps<{ user: User }> = async (ctx) => {
+    const user = parseUser(ctx);
+
+    if (user) return {
+        redirect: {
+            destination: "/app",
+            permanent: false
+        }
+    }
+
+    return { props: { user } };
 }

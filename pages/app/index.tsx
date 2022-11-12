@@ -1,25 +1,33 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { User } from "../../utils/interfaces";
+import { Room, User } from "../../utils/interfaces";
 import { parseUser } from "../../utils/parseUser";
 import RoomsBar from "../../components/RoomsBar";
 import ChatBox from "../../components/ChatBox";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-export default function App(props: { user: User }) {
+export default function App(props: { user: User, rooms: Room[] }) {
+    const router = useRouter();
+    const [inRoom, setInRoom] = useState(false);
+
+    useEffect(() => setInRoom(router.pathname.includes("/app/rooms/")), [router.pathname]);
+    
     return (
         <>
             <Head>
                 <title>App</title>
             </Head>
 
-            <RoomsBar user={props.user} />
+            <RoomsBar user={props.user} rooms={props.rooms} />
 
-            <ChatBox user={props.user} />
+            {inRoom && <ChatBox user={props.user} />}
         </>
     )
 }
 
-export const getServerSideProps: GetServerSideProps<{ user: User }> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<{ user: User, rooms: Room[] }> = async (ctx) => {
     const user = parseUser(ctx);
 
     if (!user) return {
@@ -29,5 +37,7 @@ export const getServerSideProps: GetServerSideProps<{ user: User }> = async (ctx
         }
     }
 
-    return { props: { user: user } };
+    const { data } = await axios.get(`${process.env.APP_URL}/api/rooms`);
+
+    return { props: { user, rooms: data } };
 }

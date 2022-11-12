@@ -7,6 +7,8 @@ import users from '../../../models/users';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await mongoConnect();
 
+    if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
+
     const { email, password } = req.body;
 
     if (!email || !password) return res.status(400).end();
