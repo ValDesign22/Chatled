@@ -2,13 +2,14 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
 
 export default function Register() {
-    const router = useRouter();
     const [password, setPassword] = useState("");
     const [strength, setStrength] = useState(0);
-    const [strengthText, setStrengthText] = useState("");    
+    const [strengthText, setStrengthText] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     function strengthDetect(password: string) {
         if (password.length < 1) return { score: 0, message: "" };
@@ -136,17 +137,11 @@ export default function Register() {
         const username = document.getElementById("username") as HTMLInputElement;
         const email = document.getElementById("email") as HTMLInputElement;
 
-        if (password.value.length < 1) {
-            return;
-        }
+        if (password.value.length < 1) return;
 
-        if (username.value.length < 1) {
-            return;
-        }
+        if (username.value.length < 1) return;
 
-        if (email.value.length < 1) {
-            return;
-        }
+        if (email.value.length < 1) return;
 
         const data = {
             username: username.value,
@@ -154,9 +149,17 @@ export default function Register() {
             email: email.value,
         };
 
-        console.log(data);
+        const res = await axios.post("/api/auth/register", data);
 
-        await axios.post("/api/auth/register", data);
+        if (res.status === 200) {
+            setSuccess(true);
+            setError(false);
+        // @ts-ignore
+        if (res.status === 400) {
+            setError(true);
+            setErrorMessage(res.data.message);
+        }
+    }
     }
 
     return (
@@ -172,22 +175,25 @@ export default function Register() {
                     <div className="form-group">
                         <div className="form-input">
                             <label htmlFor="username">Username</label>
-                            <input type="text" name="username" id="username" autoComplete="off" placeholder="John Doe" />
+                            <input type="text" name="username" id="username" autoComplete="off" placeholder="John Doe" disabled={success} />
                         </div>
 
                         <div className="form-input">
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" id="email" autoComplete="off" placeholder="john.doe@gmail.com" />
+                            <input type="email" name="email" id="email" autoComplete="off" placeholder="john.doe@gmail.com" disabled={success} />
                         </div>
 
                         <div className="form-input">
                             <label htmlFor="password">Password</label>
-                            <input type="password" name="password" id="password" autoComplete="off" />
+                            <input type="password" name="password" id="password" autoComplete="off" disabled={success} />
                             <span className={strength < 20 ? "weak" : strength < 40 ? "medium" : strength < 60 ? "good" : strength < 80 ? "strong" : "very-strong"}></span>
                             <p className="strengthText">{strengthText}</p>
                         </div>
 
-                        <input type="submit" value="Register" />
+                        {success ? <h2 className="success">"Successfully registered! Check your email for a verification link."</h2> : null}
+                        {error ? <h2 className="error">{errorMessage}</h2> : null}
+
+                        <input type="submit" value="Register" disabled={success} />
                         <p>Already have an account? <Link href="/app/login">Login</Link></p>
                     </div>
                 </form>

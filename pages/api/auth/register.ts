@@ -12,7 +12,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!username || !email || !password) return res.status(400).end();
 
-    console.log(username, email, password);
+    const user = await users.findOne({ email });
+
+    if (user) {
+        return res.status(400).json({ message: 'User already exists' });
+    }
 
     const code = generateConfirmCode();
     const id = generateId();
@@ -69,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     });
 
-    return res.status(200).redirect("/app/login");
+    return res.status(200).end();
 }
 
 function generateId() {

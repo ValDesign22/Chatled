@@ -14,8 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!user) return res.status(404).redirect('/app/register');
 
-    console.log(user);
-
     if (user.confirmed === "Active") return res.status(200).redirect('/app/login');
 
     console.log(user.confirmCode, code);
@@ -60,7 +58,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) console.log(err);
-            else console.log(info);
         });
 
         return res.status(200).redirect(`${process.env.APP_URL}/app/login`);

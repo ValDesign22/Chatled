@@ -13,15 +13,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const user = await users.findOne({ email: email });
 
-    if (!user) return res.status(404).end();
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
     if (user.confirmed !== "Active") return res.status(403).redirect(`/app/confirm/${user.id}`);
 
     const decodedPassword = decode(user.password);
 
+    console.log(decodedPassword);
+
     if (decodedPassword !== password) return res.status(401).end();
 
-    const token = sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1w' });
+    const token = sign({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        confirmed: user.confirmed,
+        confirmCode: user.confirmCode
+    }, process.env.JWT_SECRET!, { expiresIn: '1w' });
 
     res.setHeader('Set-Cookie', serialize(process.env.COOKIE_NAME!, token, {
         httpOnly: true,

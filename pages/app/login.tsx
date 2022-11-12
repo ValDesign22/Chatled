@@ -3,7 +3,8 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Login() {
-    const login = async () => {
+    const login = async (event: any) => {
+        event.preventDefault();
         const email = document.getElementById("email") as HTMLInputElement;
         const password = document.getElementById("password") as HTMLInputElement;
 
@@ -12,7 +13,7 @@ export default function Login() {
             password: password.value,
         });
 
-        if (res.data.success) window.location.href = "/app";
+        if (res.status === 200) window.location.href = "/app";
         else alert(res.data.message);
     }
     return (
@@ -24,7 +25,7 @@ export default function Login() {
             <div className="login">
                 <h1>Login</h1>
 
-                <form>
+                <form onSubmit={login}>
                     <div className="form-group">
                         <div className="form-input">
                             <label htmlFor="email">Email</label>
