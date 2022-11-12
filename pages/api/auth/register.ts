@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         id: id,
         username,
         email,
-        password,
+        password: encode(password),
         createdAt: new Date(),
         updatedAt: new Date(),
         confirmed: 'Pending',
@@ -73,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 function generateId() {
-    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
     let id = '';
 
@@ -94,4 +94,11 @@ function generateConfirmCode() {
     }
 
     return code;
+}
+
+function encode(data: string) {
+    const buff = Buffer.from(data);
+    const base64data = buff.toString('base64');
+
+    return base64data;
 }
