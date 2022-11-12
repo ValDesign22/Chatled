@@ -23,7 +23,7 @@ export default function Login() {
                             <input type="password" name="password" id="password" autoComplete="off" />
                         </div>
 
-                        <button type="submit">Login</button>
+                        <input type="submit" value="Login" />
                         <p>Dont have an account? <Link href="/app/register">Register</Link></p>
                     </div>
                 </form>

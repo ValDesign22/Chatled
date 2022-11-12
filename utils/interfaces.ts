@@ -5,4 +5,6 @@ export interface User {
     password: string;
     createdAt: Date;
     updatedAt: Date;
+    confirmed: string;
+    confirmCode: string;
 }

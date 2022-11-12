@@ -33,5 +33,6 @@ a {
   box-sizing: border-box;
 }
 
+@import "app/confirm.module";
 @import "app/index.module";
 @import "app/login.module";

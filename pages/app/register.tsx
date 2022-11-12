@@ -154,9 +154,9 @@ export default function Register() {
             email: email.value,
         };
 
-        await axios.post("/api/auth/register", data).then((res) => {
-            if (res.data.success) router.push("/login");
-        });
+        console.log(data);
+
+        await axios.post("/api/auth/register", data);
     }
 
     return (
@@ -187,7 +187,7 @@ export default function Register() {
                             <p className="strengthText">{strengthText}</p>
                         </div>
 
-                        <button type="submit">Register</button>
+                        <input type="submit" value="Register" />
                         <p>Already have an account? <Link href="/app/login">Login</Link></p>
                     </div>
                 </form>
