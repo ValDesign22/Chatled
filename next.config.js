@@ -7,6 +7,9 @@ const nextConfig = {
   sassOptions: {
     includePaths: [join(__dirname, 'styles')],
   },
+  images: {
+    domains: ['ik.imagekit.io']
+  }
 }
 
 module.exports = nextConfig

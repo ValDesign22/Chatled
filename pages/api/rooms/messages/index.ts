@@ -36,17 +36,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === "GET") {
-        const { room } = req.query;
+        const { room } = req.query as { room: string };
 
         if (!room) res.json({ error: "Missing room" });
 
-        const list = await rooms.find();
+        const roomData = await rooms.findOne({ id: room });
 
-        const roomIndex = list.findIndex((r) => r.id === room);
-
-        if (roomIndex === -1) res.json({ error: "Room not found" });
-
-        const roomData = list[roomIndex];
+        if (!roomData) res.json({ error: "Room not found" });
 
         res.json(roomData.messages);
     }

@@ -12,10 +12,10 @@ export default function ChatBox(props: { user: User, room: Room }) {
     const [userTyping, setUserTyping] = useState("");
     const [msgs, setMsgs] = useState<Message[]>(props.room.messages);
 
-    useEffect(() => socketInitializer(), [userTyping]);
+    useEffect(() => socketInitializer());
 
     function socketInitializer() {
-        setMsgs(props.room.messages);
+        getMessages();
         scrollToBottom();
 
         document.addEventListener("keydown", (e) => {
@@ -47,7 +47,6 @@ export default function ChatBox(props: { user: User, room: Room }) {
 
                 setTyping(true);
                 setUserTyping(data.user.username);
-                setMsgs(msgs);
             });
 
             socket.on("stopTyping", (data: { user: User }) => {
@@ -94,6 +93,13 @@ export default function ChatBox(props: { user: User, room: Room }) {
         const messagesEnd = document.getElementById("messagesEnd") as HTMLDivElement;
 
         messagesEnd.scrollIntoView({behavior: "auto"});
+    }
+
+    function getMessages() {
+        axios.get(`/api/rooms/messages?room=${props.room.id}`)
+        .then(res => {
+            setMsgs(res.data);
+        });
     }
 
     return (

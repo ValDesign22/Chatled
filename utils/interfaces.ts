@@ -7,6 +7,7 @@ export interface User {
     updatedAt: Date;
     confirmed: string;
     confirmCode: string;
+    avatar: string;
 }
 
 export interface Room {

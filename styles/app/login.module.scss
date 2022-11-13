@@ -61,20 +61,30 @@
 
                 input {
                     width: 100%;
-                    padding: 0.5rem;
-                    background: $white;
-                    border: none;
+                    background-color: $light-black;
+                    border: 0;
                     border-radius: 0.25rem;
-                    color: $black;
+                    padding: 0.5rem;
+                    color: $white;
                     font-size: 1rem;
-                    font-weight: 300;
-                    margin: 0.25rem 0;
+                    font-weight: 500;
                     outline: none;
-                    border: 1px solid $dark-white;
+                    border: 1px solid $white;
                     transition: all 0.2s ease-in-out;
 
-                    &:hover {
-                        background: $dark-white;
+                    &.error {
+                        border: 1px solid red;
+                        background-color: $light-black;
+                    }
+
+                    &:not(.error):hover {
+                        border: 1px solid $light-blue;
+                        background-color: $light-black;
+                    }
+
+                    &:focus {
+                        border: 1px solid $light-blue;
+                        background-color: $light-black;
                     }
                 }
 
