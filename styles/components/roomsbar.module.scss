@@ -25,6 +25,12 @@
             border-radius: 100%;
             position: relative;
             margin: 0.5rem 0;
+            transition: all 0.2s ease-in-out;
+
+            &.active {
+                border: 2px solid $blue;
+                border-radius: 0.75rem;
+            }
 
             .tooltip {
                 position: absolute;
@@ -40,13 +46,14 @@
                 opacity: 0;
                 scale: 0;
                 transition: all 0.2s ease-in-out;
-                z-index: 1;
+                z-index: 100;
                 min-width: 4rem;
                 text-align: center;
                 min-height: 1.5rem;
+                box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
             }
 
-            a, button {
+            a {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -59,16 +66,107 @@
                 background-color: transparent;
                 outline: none;
                 border: none;
+                transition: all 0.2s ease-in-out;
 
                 &:hover {
                     cursor: pointer;
                 }
             }
 
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+                color: $white;
+                transition: all 0.2s ease-in-out;
+            }
+
             &:hover {
-                background-color: $light-blue;
-                border-radius: 1rem;
-                cursor: pointer;
+                &:not(.active) {
+                    border: 2px solid $white;
+                    border-radius: 1.25rem;
+                    cursor: pointer;
+
+                    a, svg {
+                        color: $light-blue;
+                    }
+                }
+
+                .tooltip {
+                    opacity: 1;
+                    scale: 1;
+                }
+            }
+        }
+    }
+
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: $black;
+
+        .settings {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background-color: $light-black;
+            border: 0;
+            transition: all 0.2s ease-in-out;
+            border-radius: 100%;
+            position: relative;
+            margin: 0.5rem 0;
+            transition: all 0.2s ease-in-out;
+
+            &.active {
+                border: 2px solid $blue;
+                border-radius: 0.75rem;
+            }
+
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+                color: $white;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .tooltip {
+                position: absolute;
+                top: 0;
+                right: 100%;
+                transform: translateX(-50%);
+                background-color: $black;
+                color: $white;
+                font-size: 0.75rem;
+                font-weight: 500;
+                padding: 0.5rem;
+                border-radius: 0.25rem;
+                opacity: 0;
+                scale: 0;
+                transition: all 0.2s ease-in-out;
+                z-index: 100;
+                min-width: 4rem;
+                text-align: center;
+                min-height: 1.5rem;
+                box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+            }
+
+            &:hover {
+                &:not(.active) {
+                    border: 2px solid $white;
+                    border-radius: 1.25rem;
+                    cursor: pointer;
+
+                    svg {
+                        color: $light-blue;
+                    }  
+                }            
 
                 .tooltip {
                     opacity: 1;
@@ -224,6 +322,153 @@
 
                 &:hover {
                     background-color: $blue;
+                }
+            }
+        }
+    }
+}
+
+.settingsPopup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+
+    &.shown {
+        display: flex;
+    }
+
+    .popup {
+        background-color: $light-black;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+
+        .close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            cursor: pointer;
+
+            span {
+                &::before,
+                &::after {
+                    content: '';
+                    top: 50%;
+                    left: 50%;
+                    width: 30px;
+                    height: 3px;
+                    margin: 10px 0 0 -10px;
+                    background: $white;
+                    position: absolute;
+                    border-radius: 3px;
+                }
+
+                &::before {
+                transform: translate(-50%, -50%) rotate(45deg);
+                }
+
+                &::after {
+                transform: translate(-50%, -50%) rotate(-45deg);
+                }
+            }
+        }
+
+        h1 {
+            color: $white;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            position: absolute;
+            top: 2rem;
+        }
+
+        // make .navSelect on the left side of the popup
+        .navSelect {
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+            transform: translateY(-50%);
+
+            .nav {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                position: relative;
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 2rem;
+                    border: 0;
+                    border-radius: 0.25rem;
+                    color: $white;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    outline: none;
+                    cursor: pointer;
+                    transition: all 0.2s ease-in-out;
+                    margin-bottom: 0.5rem;
+                    position: relative;
+                    padding: 1rem;
+
+                    svg {
+                        margin-right: 0.5rem;
+                    }
+
+                    &:hover {
+                        background-color: $dark-black;
+
+                        .tooltip {
+                            opacity: 1;
+                            visibility: visible;
+                        }
+                    }
+
+                    p:not(.tooltip) {
+                        margin: 0;
+                    }
+
+                    &.active {
+                        background-color: $black
+                    }
+
+                    .tooltip {
+                        position: absolute;
+                        top: -20%;
+                        left: 150%;
+                        transform: translateX(-50%);
+                        background-color: $black;
+                        border-radius: 0.25rem;
+                        padding: 0.5rem;
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        color: $white;
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: all 0.2s ease-in-out;
+                        pointer-events: none;
+                        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+                    }
                 }
             }
         }

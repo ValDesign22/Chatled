@@ -1,7 +1,7 @@
 import {Schema, model, models} from "mongoose";
 
 export default models.rooms || model("rooms", new Schema({
-    id: { type: Number, required: true },
+    id: { type: String, required: true },
     name: { type: String, required: true },
     createdAt: { type: Date, required: true },
     updatedAt: { type: Date, required: true },

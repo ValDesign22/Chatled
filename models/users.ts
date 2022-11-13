@@ -12,5 +12,6 @@ export default models.users || model("users", new Schema({
         enum: ['Pending', 'Active'],
         default: 'Pending'
     },
-    confirmCode: { type: String, required: true }
+    confirmCode: { type: String, required: true },
+    avatar: { type: String, required: false },
 }));

@@ -14,6 +14,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             socket.on('typing', (data: { user: User }) => {
                 socket.broadcast.emit('typing', data);
             });
+
+            socket.on('stopTyping', (data: { user: User }) => {
+                socket.broadcast.emit('stopTyping', data);
+            });
         });
     }
     res.end()

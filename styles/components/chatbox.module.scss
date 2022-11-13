@@ -5,10 +5,10 @@
     width: calc(100% - 5rem);
     border-radius: 5px;
     overflow: hidden;
-    margin-right: 5rem;
 
     .bottom {
         position: absolute;
+        z-index: -1;
         bottom: 0;
         display: flex;
         flex-direction: row;
@@ -17,12 +17,6 @@
         padding: 0.5rem;
         background: $black;
         width: calc(100% - 5rem);
-
-        p {
-            color: $white;
-            font-size: 1.2rem;
-            margin: 0;
-        }
 
         input {
             width: 100%;
