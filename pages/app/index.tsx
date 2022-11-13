@@ -3,17 +3,8 @@ import Head from "next/head";
 import { Room, User } from "../../utils/interfaces";
 import { parseUser } from "../../utils/parseUser";
 import RoomsBar from "../../components/RoomsBar";
-import ChatBox from "../../components/ChatBox";
 import axios from "axios";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-
 export default function App(props: { user: User, rooms: Room[] }) {
-    const router = useRouter();
-    const [inRoom, setInRoom] = useState(false);
-
-    useEffect(() => setInRoom(router.pathname.includes("/app/rooms/")), [router.pathname]);
-    
     return (
         <>
             <Head>
@@ -21,8 +12,6 @@ export default function App(props: { user: User, rooms: Room[] }) {
             </Head>
 
             <RoomsBar user={props.user} rooms={props.rooms} />
-
-            {inRoom && <ChatBox user={props.user} />}
         </>
     )
 }

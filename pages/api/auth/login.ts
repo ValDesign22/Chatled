@@ -21,8 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const decodedPassword = decode(user.password);
 
-    console.log(decodedPassword);
-
     if (decodedPassword !== password) return res.status(401).end();
 
     const token = sign({

@@ -8,7 +8,7 @@ import RoomsBar from "../../../components/RoomsBar";
 import ChatBox from "../../../components/ChatBox";
 import { parseUser } from "../../../utils/parseUser";
 
-export default function App(props: { user: User, rooms: Room[] }) {
+export default function App(props: { user: User, rooms: Room[], currentRoom: Room }) {
     const router = useRouter();
     const [inRoom, setInRoom] = useState(false);
 
@@ -22,7 +22,7 @@ export default function App(props: { user: User, rooms: Room[] }) {
 
             <RoomsBar user={props.user} rooms={props.rooms} />
 
-            {inRoom && <ChatBox user={props.user} />}
+            {inRoom && <ChatBox user={props.user} room={props.currentRoom} />}
         </>
     )
 }
@@ -62,5 +62,5 @@ export const getServerSideProps: GetServerSideProps<{ user: User, rooms: Room[] 
         }
     }
 
-    return { props: { user, rooms: data } };
+    return { props: { user, rooms: data, currentRoom: room } };
 }

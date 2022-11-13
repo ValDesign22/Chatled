@@ -66,11 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
+        if (err) console.log(err);
     });
 
     return res.status(200).end();

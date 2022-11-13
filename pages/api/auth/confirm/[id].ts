@@ -18,11 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (user.confirmed === "Active") return res.status(200).redirect('/app/login');
 
-    console.log(user.confirmCode, code);
-    console.log(user.confirmCode === code);
-
     if (user.confirmCode === code) {
-        console.log('Code is correct');
         user.confirmed = "Active";
         user.save();
 

@@ -5,6 +5,7 @@
     bottom: 0;
     width: 5rem;
     background-color: $black;
+    z-index: 100;
 
     .header {
         display: flex;
@@ -46,7 +47,7 @@
                 opacity: 0;
                 scale: 0;
                 transition: all 0.2s ease-in-out;
-                z-index: 100;
+                z-index: 1000;
                 min-width: 4rem;
                 text-align: center;
                 min-height: 1.5rem;
@@ -109,6 +110,7 @@
         justify-content: center;
         flex-direction: column;
         background-color: $black;
+        z-index: 1000;
 
         .settings {
             display: flex;
@@ -150,7 +152,7 @@
                 opacity: 0;
                 scale: 0;
                 transition: all 0.2s ease-in-out;
-                z-index: 100;
+                z-index: 1000;
                 min-width: 4rem;
                 text-align: center;
                 min-height: 1.5rem;
@@ -184,7 +186,7 @@
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 10000;
     display: none;
     align-items: center;
     justify-content: center;
@@ -335,7 +337,7 @@
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 10000;
     display: none;
     align-items: center;
     justify-content: center;
