@@ -12,11 +12,12 @@ export default function ChatBox(props: { user: User, room: Room }) {
     const [userTyping, setUserTyping] = useState("");
     const [msgs, setMsgs] = useState<Message[]>(props.room.messages);
 
+    window.onload = scrollToBottom;
+
     useEffect(() => socketInitializer());
 
     function socketInitializer() {
         getMessages();
-        scrollToBottom();
 
         document.addEventListener("keydown", (e) => {
             const msgInput = document.getElementById("msgInput") as HTMLInputElement;

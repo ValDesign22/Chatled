@@ -85,12 +85,13 @@
                 &:not(.active) {
                     border: 2px solid $white;
                     border-radius: 1.25rem;
-                    cursor: pointer;
 
                     a, svg {
                         color: $light-blue;
                     }
                 }
+
+                cursor: pointer;
 
                 .tooltip {
                     opacity: 1;
@@ -163,12 +164,13 @@
                 &:not(.active) {
                     border: 2px solid $white;
                     border-radius: 1.25rem;
-                    cursor: pointer;
 
                     svg {
                         color: $light-blue;
                     }  
-                }            
+                }
+                
+                cursor: pointer;
 
                 .tooltip {
                     opacity: 1;
@@ -388,15 +390,6 @@
                 transform: translate(-50%, -50%) rotate(-45deg);
                 }
             }
-        }
-
-        h1 {
-            color: $white;
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            position: absolute;
-            top: 2rem;
         }
 
         .navSelect {

@@ -1,19 +1,44 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { User } from "../utils/interfaces";
 import { BsFillPersonFill, BsHouseFill } from "react-icons/bs";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { ImFilePicture } from "react-icons/im";
 import Image from "next/image";
-import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+import axios from "axios";
 
 export default function SettingsPopup(props: { shown: boolean, showFunc: MouseEventHandler, user: User }) {
     const [activeNav, setActiveNav] = useState("general");
-    
-    const imageKitID = "adni8omxg";
-    const urlEndpoint = 'https://ik.imagekit.io/adni8omxg';
-    const publicKey = 'public_6Aarroyc655JKXM6vGSGk4R1HvY=';
+    const [user, setUser] = useState(props.user);
 
-    const updateAvatar = (e: any) => {
+    const imgurID = "498b7c959601a9d";
+
+    const updateProfilePicture = async (e: any) => {
+        e.preventDefault();
+        
+        const response = await axios.post(`/api/upload?user=${user.id}`);
+
+        console.log(response);
+
+        setUser(response.data.user);
+
+        return alert("This feature is not yet implemented.");
+
+        if (e.target.files.length === 0) return;
+
+        const formData = new FormData();
+
+        formData.append("image", e.target.files[0]);
+
+        const res = await axios.post(`https://api.imgur.com/3/image`, formData, {
+            headers: {
+                Authorization: `Client-ID ${imgurID}`,
+                Accept: "application/json"
+            }
+        });
+
+        const data = res.data;
+
+        console.log(data);
     }
 
     return (
@@ -22,7 +47,6 @@ export default function SettingsPopup(props: { shown: boolean, showFunc: MouseEv
                 <div className="close" onClick={props.showFunc}>
                     <span></span>
                 </div>
-                <h1>Settings</h1>
                 <div className="navSelect">
                     <div className="nav">
                         <div className={`item ${activeNav === "general" ? "active" : ""}`} onClick={() => setActiveNav("general")}>
@@ -51,10 +75,10 @@ export default function SettingsPopup(props: { shown: boolean, showFunc: MouseEv
                             <div className="item">
                                 <p>Avatar</p>
                                 <div className="avatar">
-                                    <Image src={props.user.avatar ?? `https://ik.imagekit.io/${imageKitID}/default-avatar`} alt="Avatar" width={100} height={100} />
+                                    <Image src={props.user.avatar ?? `https://ik.imagekit.io/${"adni8omxg"}/default-avatar`} alt="Avatar" width={100} height={100} id="avatarPreview" />
                                     
                                     <div className="change">
-                                        <input type="file" id="avatar" />
+                                        <input type="file" id="avatar" accept="image/*" onChange={updateProfilePicture} />
                                         <label htmlFor="avatar" id="avatar"><ImFilePicture />Upload</label>
                                     </div>
                                 </div>

@@ -5,11 +5,21 @@ import users from "../../../models/users";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await mongoConnect();
 
-    if (req.method !== "GET") return res.status(405).json({ message: "Method not allowed" });
+    if (req.method === "GET") {
+        const { id } = req.query;
+    
+        const user = await users.findOne({ id: id });
+    
+        res.status(200).json(user);
+    }
 
-    const { id } = req.query;
+    if (req.method === "POST") {
+        const { id, type } = req.query;
 
-    const user = await users.findOne({ id: id });
+        if (type === "profilePicture") {
+            const { profilePicture } = req.body;
+        }
 
-    res.status(200).json(user);
+        return res.status(200).json({ message: "Success" });
+    }
 }
